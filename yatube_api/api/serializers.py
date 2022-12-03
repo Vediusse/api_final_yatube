@@ -21,8 +21,8 @@ class FollowSerializer(serializers.ModelSerializer):
         default=serializers.CurrentUserDefault()
     )
     following = serializers.SlugRelatedField(
-            queryset=User.objects.all(),
-            slug_field='username',
+        queryset=User.objects.all(),
+        slug_field='username',
     )
 
     class Meta:
@@ -34,13 +34,13 @@ class FollowSerializer(serializers.ModelSerializer):
                 fields=('user', 'following'),
                 message='Вы уже подписаны'
             )
-            ]
+        ]
 
     def validate(self, data):
         if data['user'] == data['following']:
             raise serializers.ValidationError(
                 {"detail": "Подписка на себя невозможна"}
-               )
+            )
         return data
 
 
